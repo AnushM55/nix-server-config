@@ -34,7 +34,7 @@
 
   users.users = {
     root.hashedPassword = "!"; # Disable root login
-    username = {
+    gopher = {
       isNormalUser = true;
       extraGroups = [ "wheel" ];
       openssh.authorizedKeys.keys = [
