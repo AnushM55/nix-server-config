@@ -124,7 +124,7 @@ in
   systemd.network.wait-online.enable = false; 
   boot.initrd.systemd.network.wait-online.enable = false;
 
-  networking.firewall.allowedTCPPorts = [ 22 , 443 , 80 ];
+  networking.firewall.allowedTCPPorts = [ 22  443  80 ];
 
   system.stateVersion = "24.11";
 }
