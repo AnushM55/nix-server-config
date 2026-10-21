@@ -11,6 +11,18 @@ in
   environment.systemPackages = [
     pkgs.vim
     pkgs.git
+    (pkgs.writeShellScriptBin "forgejo-cli" ''
+      cd ${cfg.stateDir}
+      export GITEA_WORK_DIR=${cfg.stateDir}
+      export GITEA_CUSTOM=${cfg.customDir}
+      if [ "$(id -u)" != "$(id -u ${cfg.user})" ]; then
+        exec /run/wrappers/bin/sudo -u ${cfg.user} -g ${cfg.group} \
+          --preserve-env=GITEA_WORK_DIR,GITEA_CUSTOM \
+          ${lib.getExe cfg.package} "$@"
+      else
+        exec ${lib.getExe cfg.package} "$@"
+      fi
+    '')
   ];
 
   nix.optimise.automatic = true;
@@ -92,11 +104,11 @@ in
 	      # You can send a test email from the web UI at:
 	      # Profile Picture > Site Administration > Configuration >  Mailer Configuration
 
-mirror = {
-      ENABLED = true;
-      DEFAULT_INTERVAL = "8h";   # how often mirrors sync by default
-      MIN_INTERVAL = "10m";      # lowest interval users can pick
-    };
+          mirror = {
+                ENABLED = true;
+                DEFAULT_INTERVAL = "8h";   # how often mirrors sync by default
+                MIN_INTERVAL = "10m";      # lowest interval users can pick
+              };
 
 
 
