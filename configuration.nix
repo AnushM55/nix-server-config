@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   cfg = config.services.forgejo;
   srv = cfg.settings.server;
@@ -11,6 +11,7 @@ in
   environment.systemPackages = [
     pkgs.vim
     pkgs.git
+
     (pkgs.writeShellScriptBin "forgejo-cli" ''
       cd ${cfg.stateDir}
       export GITEA_WORK_DIR=${cfg.stateDir}
@@ -23,6 +24,7 @@ in
         exec ${lib.getExe cfg.package} "$@"
       fi
     '')
+
   ];
 
   nix.optimise.automatic = true;
