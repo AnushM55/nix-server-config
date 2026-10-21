@@ -90,9 +90,18 @@ in
 	      };
 	      # Sending emails is completely optional
 	      # You can send a test email from the web UI at:
-	      # Profile Picture > Site Administration > Configuration >  Mailer Configuration 
-	    };
-	  };
+	      # Profile Picture > Site Administration > Configuration >  Mailer Configuration
+
+mirror = {
+      ENABLED = true;
+      DEFAULT_INTERVAL = "8h";   # how often mirrors sync by default
+      MIN_INTERVAL = "10m";      # lowest interval users can pick
+    };
+
+
+
+};
+	};
 	
 	
 	
