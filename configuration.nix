@@ -75,7 +75,7 @@ in
       KbdInteractiveAuthentication = false;
     };
   };
-    services.tailscale.enable = true;
+    services.tailscale.enable = false;
     services.caddy = {
         enable = true;
         virtualHosts."vcs.anushm55.com".extraConfig = ''
@@ -84,7 +84,7 @@ in
     };
 
 	services.forgejo = {
-	    enable = true;
+	    enable = false;
 	    database.type = "postgres";
 	    # Enable support for Git Large File Storage
 	    lfs.enable = true;
@@ -131,9 +131,9 @@ in
   networking.firewall = {
     enable = true;
     # Always allow traffic from your Tailscale network
-    trustedInterfaces = [ config.services.tailscale.interfaceName ];
-    # Allow the Tailscale UDP port through the firewall
-    allowedUDPPorts = [ config.services.tailscale.port ];
+   # trustedInterfaces = [ config.services.tailscale.interfaceName ];
+   # Allow the Tailscale UDP port through the firewall
+   # allowedUDPPorts = [ config.services.tailscale.port ];
   };
 
   # 2. Force tailscaled to use nftables (Critical for clean nftables-only systems)
@@ -147,7 +147,7 @@ in
   systemd.network.wait-online.enable = false; 
   boot.initrd.systemd.network.wait-online.enable = false;
 
-  networking.firewall.allowedTCPPorts = [ 22  443  80 ];
+  networking.firewall.allowedTCPPorts = [ 22 ];
 
   system.stateVersion = "24.11";
 }
